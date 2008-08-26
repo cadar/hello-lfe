@@ -1,6 +1,6 @@
 MAIN=myhello
 
-LFE_PATH=${HOME}/lfe0.2/
+LFE_PATH=${HOME}/lfe/ebin/
 
 
 
