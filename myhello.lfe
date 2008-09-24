@@ -1,5 +1,5 @@
-(define-module myhello
-    (export (start 0)))
+(defmodule myhello
+  (export (start 0)))
 
-(define (start)
-    (: io format '"Hello World!~n"))
+(defun start ()
+  (: io format '"Hello World!~n"))
