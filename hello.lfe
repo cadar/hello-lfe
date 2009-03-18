@@ -1,4 +1,4 @@
-(defmodule myhello
+(defmodule hello
   (export (start 0)))
 
 (defun start ()
