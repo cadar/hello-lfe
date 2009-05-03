@@ -12,7 +12,7 @@ start: ${MAIN}.beam
 	@erl -noshell -pa ${LFE_EBIN} -eval 'code:load_file(${MAIN}).' -eval '${MAIN}:start().' -s erlang halt
 
 shell:
-	@erl -pa ${LFE_EBIN} -noshell -noinput -s lfe_boot start
+	@erl -pa ${LFE_EBIN} -noshell -s lfe_shell server
 
 clean:
 	@rm -f *.beam *.dump *.out *.err
