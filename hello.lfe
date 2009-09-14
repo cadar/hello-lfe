@@ -1,5 +1,5 @@
 (defmodule hello
-  (export (start 0)))
+  (export all))
 
 (defun start ()
   (: io format '"Hello World!~n"))

@@ -1,14 +1,13 @@
 MAIN=hello
-export PATH=/bin:/usr/bin:/sw/erlang/bin:$PATH
 LFE_EBIN=${HOME}/lfe/ebin/
-
+ERL_LOAD='code:load_file(lfe_comp).'
+ERL_COMP='File=hd(init:get_plain_arguments()), try lfe_comp:file(File,[report,{outdir,"."}]) of {ok,_Module} -> halt(0); error -> halt(1); All -> io:format("./~s:1: ~p~n",[File,All]) catch X:Y -> io:format("./~s:1: Catch outside of compiler: ~p ~p ~n",[File,X,Y]) end, halt(1).'
 
 all: ${MAIN}.beam start
 
-${MAIN}.beam: ${MAIN}.lfe
-	@erl -noshell -pa ${LFE_EBIN} -eval 'code:load_file(lfe_comp).' \
-	-eval 'lfe_comp:file(hd(init:get_plain_arguments())), halt(0).' \
-	-extra ${MAIN}.lfe
+%.beam : %.lfe
+	@echo Recompile: $<
+	@erl -pa ${LFE_EBIN} -noshell -eval $(ERL_LOAD) -eval $(ERL_COMP) -extra $< 
 
 start: ${MAIN}.beam
 	@erl -noshell -pa ${LFE_EBIN} -eval 'code:load_file(${MAIN}).' -eval '${MAIN}:start().' -s erlang halt
